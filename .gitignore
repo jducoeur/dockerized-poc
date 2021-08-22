@@ -1,0 +1,5 @@
+target/
+/.idea/vcs.xml
+/.idea/
+/project/target/
+/target/
