@@ -12,7 +12,6 @@ lazy val root = (project in file("."))
     resolvers += "dnvriend".at("http://dl.bintray.com/dnvriend/maven"),
     libraryDependencies ++= Seq(
       scalaTest % Test
-    ),
-    PlayKeys.playDefaultPort := 9003
+    )
   )
   .enablePlugins(JavaAppPackaging, PlayScala, BuildInfoPlugin)
