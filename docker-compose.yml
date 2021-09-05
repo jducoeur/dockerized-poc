@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+  app:
+    image: dockerized-poc:0.1.0-SNAPSHOT
+    ports:
+      - "9000:9000"
