@@ -5,6 +5,11 @@ services:
     image: dockerized-poc:0.1.0-SNAPSHOT
     ports:
       - "9000"
+    environment:
+      # Note that these are dummies. We need *something* in order for the AWS SDK to work, but just fake
+      # values for localstack. In the real AWS environment, we shouldn't get these this way, but through IAM.
+      AWS_ACCESS_KEY_ID: XXXXXXXXXXXX1
+      AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXX2
 
   nginx:
     image: nginx:latest
