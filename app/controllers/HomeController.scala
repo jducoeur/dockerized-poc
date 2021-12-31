@@ -7,6 +7,7 @@ import java.net.InetAddress
 import javax.inject.{Inject, Provider}
 import com.amazonaws.services.secretsmanager.AWSSecretsManagerClientBuilder
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest
+import play.api.Logger
 
 class HomeController @Inject() (val appProv: Provider[play.api.Application]) extends Controller {
   implicit lazy val app = appProv.get
@@ -26,19 +27,15 @@ class HomeController @Inject() (val appProv: Provider[play.api.Application]) ext
 
   // Yes, this is horrible and Java-y and blocking and mutating. But it's throwaway test setup code.
   lazy val theSecret: String = {
-    println(s"Fetching theSecret")
     val request = new GetSecretValueRequest()
     request.setSecretId("test_secret")
-    println(s"About to call the secretsManager")
     val result = secretsManager.getSecretValue(request)
-    println(s"Fetching the secretString out of there")
     result.getSecretString()
   }
 
   def hello(): EssentialAction = Action { implicit request =>
-    println(s"In hello()")
     val localAddr = InetAddress.getLocalHost.getHostAddress
-    println(s"Got localAddr")
+    Logger.info(s"Got a call on $localAddr")
     Ok(s"Look, you called hello() on $localAddr. My secret is $theSecret")
   }
 }
