@@ -1,21 +1,51 @@
 version: "3.8"
 
 services:
-  poc:
+  pocseed:
     image: dockerized-poc:0.1.0-SNAPSHOT
     ports:
+      - '1600:1600'
       - "9000"
     environment:
       # Note that these are dummies. We need *something* in order for the AWS SDK to work, but just fake
       # values for localstack. In the real AWS environment, we shouldn't get these this way, but through IAM.
       AWS_ACCESS_KEY_ID: XXXXXXXXXXXX1
       AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXX2
+      CLUSTER_PORT: 1600
+      CLUSTER_IP: pocseed
+      SEED_PORT_1600_TCP_ADDR: pocseed
+
+  poc2:
+    image: dockerized-poc:0.1.0-SNAPSHOT
+    ports:
+      - '1601:1601'
+      - "9000"
+    environment:
+      AWS_ACCESS_KEY_ID: XXXXXXXXXXXX1
+      AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXX2
+      CLUSTER_PORT: 1601
+      CLUSTER_IP: pocseed
+      SEED_PORT_1600_TCP_ADDR: pocseed
+
+  poc3:
+    image: dockerized-poc:0.1.0-SNAPSHOT
+    ports:
+      - '1602:1602'
+      - "9000"
+    environment:
+      AWS_ACCESS_KEY_ID: XXXXXXXXXXXX1
+      AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXX2
+      CLUSTER_PORT: 1602
+      CLUSTER_IP: pocseed
+      SEED_PORT_1600_TCP_ADDR: pocseed
 
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - poc
+      - pocseed
+      - poc2
+      - poc3
     ports:
       - "80:80"
