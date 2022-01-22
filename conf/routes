@@ -1,1 +1,2 @@
 GET    /hello    @controllers.HomeController.hello()
+GET    /:word    @controllers.HomeController.countWord(word)

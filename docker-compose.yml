@@ -3,6 +3,7 @@ version: "3.8"
 services:
   pocseed:
     image: dockerized-poc:0.1.0-SNAPSHOT
+    shm_size: '1gb'
     ports:
       - '1600:1600'
       - "9000"
@@ -17,6 +18,7 @@ services:
 
   poc2:
     image: dockerized-poc:0.1.0-SNAPSHOT
+    shm_size: '1gb'
     ports:
       - '1601:1601'
       - "9000"
@@ -24,11 +26,12 @@ services:
       AWS_ACCESS_KEY_ID: XXXXXXXXXXXX1
       AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXX2
       CLUSTER_PORT: 1601
-      CLUSTER_IP: pocseed
+      CLUSTER_IP: poc2
       SEED_PORT_1600_TCP_ADDR: pocseed
 
   poc3:
     image: dockerized-poc:0.1.0-SNAPSHOT
+    shm_size: '1gb'
     ports:
       - '1602:1602'
       - "9000"
@@ -36,7 +39,7 @@ services:
       AWS_ACCESS_KEY_ID: XXXXXXXXXXXX1
       AWS_SECRET_ACCESS_KEY: XXXXXXXXXXXX2
       CLUSTER_PORT: 1602
-      CLUSTER_IP: pocseed
+      CLUSTER_IP: poc3
       SEED_PORT_1600_TCP_ADDR: pocseed
 
   nginx:

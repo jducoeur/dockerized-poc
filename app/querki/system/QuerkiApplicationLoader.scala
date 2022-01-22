@@ -15,6 +15,7 @@ class QuerkiApplicationLoader extends ApplicationLoader {
     val newContext = context.copy(initialConfiguration = newConfig)
     val builder = new GuiceApplicationBuilder()
     val app = (new GuiceApplicationLoader(builder)).load(newContext)
+    PocCluster.init(app)
     app
   }
 }

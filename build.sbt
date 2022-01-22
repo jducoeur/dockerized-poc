@@ -16,7 +16,9 @@ lazy val root = (project in file("."))
       // it pulls in a version of Netty that conflicts with Play 2.5, which is why we switch to akka-http
       // below. We need this newer SDK so that we have access to the SecretsManager:
       "com.amazonaws" % "aws-java-sdk" % "1.12.99",
-      "com.typesafe.akka" %% "akka-cluster" % "2.4.20"
+      "com.typesafe.akka" %% "akka-remote" % "2.4.20",
+      "com.typesafe.akka" %% "akka-cluster" % "2.4.20",
+      "com.typesafe.akka" %% "akka-cluster-sharding" % "2.4.20"
     )
   )
   // NOTE: we need to turn on akka-http and turn off Netty, because the version of Netty built into
