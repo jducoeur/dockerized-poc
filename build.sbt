@@ -20,7 +20,8 @@ lazy val root = (project in file("."))
       "com.amazonaws" % "aws-java-sdk" % "1.12.99",
       "com.typesafe.akka" %% "akka-remote" % akkaV,
       "com.typesafe.akka" %% "akka-cluster" % akkaV,
-      "com.typesafe.akka" %% "akka-cluster-sharding" % akkaV
+      "com.typesafe.akka" %% "akka-cluster-sharding" % akkaV,
+      "com.typesafe.akka" %% "akka-distributed-data-experimental" % akkaV
     )
   )
   // NOTE: we need to turn on akka-http and turn off Netty, because the version of Netty built into

@@ -22,8 +22,9 @@ class HomeController @Inject() (
 
   lazy val theSecret: String = Secrets.getSecret("test_secret")
 
+  lazy val localAddr = InetAddress.getLocalHost.getHostAddress
+
   def hello(): EssentialAction = Action { implicit request =>
-    val localAddr = InetAddress.getLocalHost.getHostAddress
     Logger.info(s"Got a call on $localAddr")
     Ok(s"Look, you called hello() on $localAddr. My secret is $theSecret")
   }
@@ -44,8 +45,8 @@ class HomeController @Inject() (
   implicit val ec: ExecutionContext = actorSystem.dispatcher
 
   def countWord(word: String): EssentialAction = Action.async { implicit request =>
-    (counterRegion ? WordCountActor.WordCalled(word)).map { case WordCountActor.CallCount(wordRet, count) =>
-      Ok(s"You have said $wordRet $count times so far")
+    (counterRegion ? WordCountActor.WordCalled(word)).map { case WordCountActor.CallCount(wordRet, count, actorAddr) =>
+      Ok(s"You have said $wordRet $count times so far (received on $localAddr, actor is on $actorAddr)")
     }
   }
 }
