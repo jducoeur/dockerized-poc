@@ -1,4 +1,4 @@
-<configuration>
+<configuration debug="true">
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -6,20 +6,24 @@
         </encoder>
     </appender>
 
-    <logger name="com.jolbox.bonecp" level="DEBUG">
+    <logger name="com.jolbox.bonecp" level="TRACE">
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="play" level="DEBUG">
+    <logger name="play" level="TRACE">
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="akka" level="DEBUG">
+    <logger name="akka" level="TRACE">
         <appender-ref ref="STDOUT" />
     </logger>
 
     <logger name="application" level="DEBUG">
         <appender-ref ref="STDOUT" />
     </logger>
+
+    <root level="trace">
+        <appender-ref ref="STDOUT" />
+    </root>
 
 </configuration>
