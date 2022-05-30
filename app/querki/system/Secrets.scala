@@ -3,6 +3,7 @@ package querki.system
 import com.amazonaws.services.secretsmanager.AWSSecretsManagerClientBuilder
 import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.secretsmanager.model.GetSecretValueRequest
+import play.api.libs.json.{JsString, JsValue, Json}
 
 /**
  * Interface to the AWS Secrets Manager.
@@ -40,12 +41,25 @@ object Secrets {
     configured.build()
   }
 
-  // Yes, this is horrible and Java-y and blocking and mutating. But it's throwaway test setup code.
-  def getSecret(name: String): String = {
+  /**
+   * Note that this is horrible and blocking. Think about whether we can/should do better in the real system.
+   *
+   * In the real system, load these during initialization, not as a lazy val, so we have fast-fail.
+   */
+  lazy val secrets: JsValue = {
     val request = new GetSecretValueRequest()
-    request.setSecretId(name)
+    request.setSecretId(secretName)
     val result = secretsManager.getSecretValue(request)
-    result.getSecretString()
+    val jsonStr = result.getSecretString()
+
+    Json.parse(jsonStr)
   }
 
+  // Yes, this is horrible and Java-y and blocking and mutating. But it's throwaway test setup code.
+  def getSecret(name: String): String = {
+    (secrets \ name).get match {
+      case JsString(value) => value
+      case other           => throw new Exception(s"Secret value for key $name is non-String $other")
+    }
+  }
 }
