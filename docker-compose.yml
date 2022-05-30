@@ -15,6 +15,7 @@ services:
       CLUSTER_PORT: 1600
       CLUSTER_IP: pocseed
       SEED_PORT_1600_TCP_ADDR: pocseed
+      SECRETS_ENDPOINT: 'http://host.docker.internal:4566'
 
   poc2:
     image: dockerized-poc:0.1.0-SNAPSHOT
@@ -28,6 +29,7 @@ services:
       CLUSTER_PORT: 1601
       CLUSTER_IP: poc2
       SEED_PORT_1600_TCP_ADDR: pocseed
+      SECRETS_ENDPOINT: 'http://host.docker.internal:4566'
 
   poc3:
     image: dockerized-poc:0.1.0-SNAPSHOT
@@ -41,6 +43,7 @@ services:
       CLUSTER_PORT: 1602
       CLUSTER_IP: poc3
       SEED_PORT_1600_TCP_ADDR: pocseed
+      SECRETS_ENDPOINT: 'http://host.docker.internal:4566'
 
   nginx:
     image: nginx:latest
