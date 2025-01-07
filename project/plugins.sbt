@@ -2,7 +2,7 @@
 logLevel := Level.Warn
 
 // The Typesafe repository
-resolvers += "Typesafe repository".at("http://repo.typesafe.com/typesafe/releases/")
+// resolvers += "Typesafe repository".at("http://repo.typesafe.com/typesafe/releases/")
 
 // Needed for ConductR, according to https://github.com/typesafehub/conductr-lib
 //resolvers += bintrayRepo("typesafe", "maven-releases")
@@ -12,6 +12,9 @@ resolvers += "bintray/non".at("http://dl.bintray.com/non/maven")
 
 // Use the Play sbt plugin for Play projects
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.5.19")
+
+// Docker plugin: https://github.com/marcus-drake/sbt-docker
+// addSbtPlugin("se.marcuslonnberg" % "sbt-docker" % "1.0.0")
 
 // NOTE FOR QUERKI: these plugins are antique, and are just for optimization. Remove for now, and seek
 // alternatives. Note that these are enabled via SbtWeb, which isn't *quite* as outdated.
